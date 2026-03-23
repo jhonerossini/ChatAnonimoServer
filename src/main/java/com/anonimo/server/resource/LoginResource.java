@@ -17,7 +17,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.SecurityContext;
 
-@Path("/chat")
+@Path("/auth")
 public class LoginResource {
 	
 	@Inject

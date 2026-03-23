@@ -99,9 +99,19 @@ public class ChatWebSocket {
         String remetente = sessoesAtivas.get(session);
         if (remetente == null) return;
 
-        // Se quiser processar mensagens no banco (salvar histórico), 
-        // faça o mesmo padrão de Thread.startVirtualThread + semaforo.acquire() aqui!
-        System.out.println("Mensagem recebida de " + remetente + ": " + mensagem);
+        // Disparamos uma Virtual Thread para processar o envio
+        Thread.startVirtualThread(() -> {
+            System.out.println("Transmitindo mensagem de: " + remetente);
+
+            // Percorremos o mapa de sessões e enviamos para todos
+            sessoesAtivas.keySet().forEach(sessaoDestino -> {
+                if (sessaoDestino.isOpen()) {
+                    // Enviamos no formato "Usuario: Mensagem" 
+                    // O seu front-end React vai quebrar essa String para exibir no balão
+                    sessaoDestino.getAsyncRemote().sendText(remetente + ": " + mensagem);
+                }
+            });
+        });
     }
 
     private void fecharSessaoComErro(Session session, String motivo) {
