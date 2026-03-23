@@ -34,7 +34,7 @@ public class JwtService {
                 .compact();
     }
     
-    protected Claims validarToken(String token) {
+    public Claims validarToken(String token) {
         try {
             return Jwts.parser()
                     .verifyWith(getKey())

@@ -46,7 +46,7 @@ public class UsuarioEntity extends PanacheEntityBase {
     @Column(length = 255)
     public String mensagem;
     
-    @Column(name = "status_global", length = 2, updatable = false)
+    @Column(name = "status_global", length = 2)
     public String statusGlobal;
 
     // Gerencia a data de criação automaticamente e impede que seja alterada em updates
@@ -64,5 +64,8 @@ public class UsuarioEntity extends PanacheEntityBase {
 
     @Column(name = "usuario_atualizacao", length = 50)
     public String usuarioAtualizacao;
+    
+    @Column(name = "ultima_atividade")
+    public LocalDateTime ultimaAtividade;
 
 }
